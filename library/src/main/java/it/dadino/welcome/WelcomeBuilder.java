@@ -54,9 +54,10 @@ public class WelcomeBuilder {
 		return this;
 	}
 
-	public void show() {
+	public WelcomeView show() {
 		Welcome welcome = new Welcome(skip, done, next, pages, listener);
 		WelcomeView welcomeView = new WelcomeView(activity, welcome);
 		welcomeView.show(activity);
+		return welcomeView;
 	}
 }

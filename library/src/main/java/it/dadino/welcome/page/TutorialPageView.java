@@ -36,7 +36,7 @@ public class TutorialPageView extends LinearLayout {
 		title = (TextView) findViewById(R.id.page_title);
 		subtitle = (TextView) findViewById(R.id.page_subtitle);
 		illustrations = (FrameLayout) findViewById(R.id.page_illustrations);
-		footer = findViewById(R.id.footer);
+		footer = findViewById(R.id.page_footer);
 
 		if (title != null) {
 			mTutorialPage.getTitle()
