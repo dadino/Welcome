@@ -3,19 +3,21 @@ package it.dadino.welcome.page;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.dadino.welcome.Illustration;
+import it.dadino.welcome.animated.Illustration;
+import it.dadino.welcome.animated.Text;
 
 public class TutorialPageBuilder {
 
-	private String  title;
-	private String  subtitle;
+	private Text title;
+	private Text subtitle;
 	private int     backgroundColor;
 	private int     footerColor;
 	private boolean isExitPage;
 	private List<Illustration> illustrations = new ArrayList<>();
 
 	public static TutorialPage exit() {
-		return new TutorialPageBuilder().setIsExitPage(true)
+		return new TutorialPageBuilder().title(new Text("exit"))
+		                                .setIsExitPage(true)
 		                                .build();
 	}
 
@@ -23,12 +25,12 @@ public class TutorialPageBuilder {
 		return new TutorialPageBuilder();
 	}
 
-	public TutorialPageBuilder title(String title) {
+	public TutorialPageBuilder title(Text title) {
 		this.title = title;
 		return this;
 	}
 
-	public TutorialPageBuilder subtitle(String subtitle) {
+	public TutorialPageBuilder subtitle(Text subtitle) {
 		this.subtitle = subtitle;
 		return this;
 	}

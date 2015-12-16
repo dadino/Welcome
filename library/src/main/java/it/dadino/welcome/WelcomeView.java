@@ -94,6 +94,7 @@ public class WelcomeView extends FrameLayout {
 		footer = findViewById(R.id.footer);
 
 		skip.setText(mWelcome.getSkip());
+		next.setText(mWelcome.getNext());
 
 		next.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -132,12 +133,12 @@ public class WelcomeView extends FrameLayout {
 				//Background Color
 				rightColor = R.color.transparent;
 				if (adapter.getCount() - 2 > position) rightColor = adapter.getView(position + 1)
-				                                                           .pageColor();
+				                                                           .backgroundColor();
 
 				finalColor = (int) argbEvaluator.evaluate(positionOffset, ContextCompat.getColor(
 						getContext(), adapter.getView(position)
-						                     .pageColor()), ContextCompat.getColor(getContext(),
-						rightColor));
+						                     .backgroundColor()), ContextCompat.getColor(
+						getContext(), rightColor));
 
 				background.setBackgroundColor(finalColor);
 
@@ -145,11 +146,11 @@ public class WelcomeView extends FrameLayout {
 				rightFooterColor = R.color.transparent;
 				if (adapter.getCount() - 2 > position) rightFooterColor = adapter.getView(
 						position + 1)
-				                                                                 .pageFooterColor();
+				                                                                 .footerColor();
 
 				finalFooterColor = (int) argbEvaluator.evaluate(positionOffset,
 						ContextCompat.getColor(getContext(), adapter.getView(position)
-						                                            .pageFooterColor()),
+						                                            .footerColor()),
 						ContextCompat.getColor(getContext(), rightFooterColor));
 
 				footer.setBackgroundColor(finalFooterColor);
@@ -198,7 +199,7 @@ public class WelcomeView extends FrameLayout {
 		    });
 
 		int initialFooterColor = ContextCompat.getColor(getContext(), adapter.getView(0)
-		                                                                     .pageFooterColor());
+		                                                                     .footerColor());
 		footer.setBackgroundColor(initialFooterColor);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 			((Activity) getContext()).getWindow()

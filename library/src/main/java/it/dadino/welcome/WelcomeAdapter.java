@@ -15,6 +15,7 @@ public class WelcomeAdapter extends ViewPagerAdapter<TutorialPageView> {
 	}
 
 	public void addPage(TutorialPage page) {
-		addView(new TutorialPageView(context, page), page.getTitle());
+		addView(new TutorialPageView(context, page), page.getTitle()
+		                                                 .text());
 	}
 }

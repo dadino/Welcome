@@ -7,9 +7,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import it.dadino.welcome.Illustration;
 import it.dadino.welcome.R;
-import it.dadino.welcome.animations.Animation;
+import it.dadino.welcome.animated.Illustration;
 import it.dadino.welcome.animations.PageInfo;
 
 
@@ -32,50 +31,53 @@ public class TutorialPageView extends LinearLayout {
 
 	private void init() {
 		setOrientation(VERTICAL);
-		inflate(getContext(), pageLayout(), this);
+		inflate(getContext(), layout(), this);
 
 		title = (TextView) findViewById(R.id.page_title);
 		subtitle = (TextView) findViewById(R.id.page_subtitle);
 		illustrations = (FrameLayout) findViewById(R.id.page_illustrations);
 		footer = findViewById(R.id.footer);
 
-		if (title != null) title.setText(mTutorialPage.getTitle());
-		if (subtitle != null) subtitle.setText(mTutorialPage.getSubtitle());
+		if (title != null) {
+			mTutorialPage.getTitle()
+			             .setView(title);
+		}
+		if (subtitle != null) {
+			mTutorialPage.getSubtitle()
+			             .setView(subtitle);
+		}
 
 		inflateIllustrations();
 	}
 
 	private void inflateIllustrations() {
-		if (illustrations != null) for (Illustration i : mTutorialPage.getIllustrations()) {
+		if (illustrations != null)
+			for (Illustration illustration : mTutorialPage.getIllustrations()) {
 			ImageView image = new ImageView(getContext());
-			image.setImageResource(i.getDrawable());
 			image.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 			FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
 					FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 			image.setLayoutParams(params);
+				illustration.setView(image);
 			illustrations.addView(image);
 		}
 	}
 
-	public void transform(float position) {
+	public void transform(float fraction) {
 		if (mPageInfo == null) mPageInfo = new PageInfo(getWidth(), getHeight());
 
 		if (title != null) {
-			title.setTranslationX(mPageInfo.width * position * 1.2f);
-			title.setAlpha(1.0f - Math.abs(position));
+			mTutorialPage.getTitle()
+			             .animate(mPageInfo, fraction);
 		}
 		if (subtitle != null) {
-			subtitle.setTranslationX(mPageInfo.width * position * 1.5f);
-			subtitle.setAlpha(1.0f - Math.abs(position));
+			mTutorialPage.getSubtitle()
+			             .animate(mPageInfo, fraction);
 		}
 
 		if (illustrations != null) {
-			for (int i = 0; i < illustrations.getChildCount(); i++) {
-				for (Animation animation : mTutorialPage.getIllustrations()
-				                                        .get(i)
-				                                        .getAnimations()) {
-					animation.animate(illustrations.getChildAt(i), position, mPageInfo);
-				}
+			for (Illustration illustration : mTutorialPage.getIllustrations()) {
+				illustration.animate(mPageInfo, fraction);
 			}
 		}
 	}
@@ -84,16 +86,16 @@ public class TutorialPageView extends LinearLayout {
 		return getHeight() - (footer != null ? footer.getTop() : 0);
 	}
 
-	private int pageLayout() {
+	private int layout() {
 		if (!mTutorialPage.isExitPage()) return R.layout.tutorial_page;
 		else return R.layout.tutorial_page_exit;
 	}
 
-	public int pageColor() {
+	public int backgroundColor() {
 		return mTutorialPage.getBackgroundColor();
 	}
 
-	public int pageFooterColor() {
+	public int footerColor() {
 		return mTutorialPage.getFooterColor();
 	}
 }

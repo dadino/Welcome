@@ -2,7 +2,7 @@ package it.dadino.welcome.animations;
 
 import android.view.View;
 
-public class TranslationXAnimation extends Animation {
+public class XAnimation extends Animation {
 
 	@Override
 	public void animate(View view, float fraction, PageInfo info) {
