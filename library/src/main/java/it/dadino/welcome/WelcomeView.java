@@ -142,7 +142,6 @@ public class WelcomeView extends FrameLayout {
 				background.setBackgroundColor(finalColor);
 
 				//Footer Color
-
 				rightFooterColor = R.color.transparent;
 				if (adapter.getCount() - 2 > position) rightFooterColor = adapter.getView(
 						position + 1)
